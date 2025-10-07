@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube ELT Pipeline - Component Functions Guide</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            padding: 5px 0;
+            display: block;
+        }
+        
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .component-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .function-tag {
+            background: #3498db;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .purpose-tag {
+            background: #27ae60;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        code {
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        .flow-diagram {
+            background: #fff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .deployment-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .quick-ref {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .print-friendly {
+            color: #000 !important;
+            background: #fff !important;
+        }
+        
+        @media print {
+            body { margin: 0; padding: 15px; }
+            .component-box, .deployment-info, .quick-ref { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>YouTube ELT Pipeline - Complete Component Functions Guide</h1>
+
+<div class="toc">
+    <h2>Table of Contents</h2>
+    <ul>
+        <li><a href="#project-overview">1. Project Overview</a></li>
+        <li><a href="#core-infrastructure">2. Core Infrastructure Components</a></li>
+        <li><a href="#data-pipeline">3. Data Pipeline Components (DAGs)</a></li>
+        <li><a href="#supporting-components">4. Supporting Components</a></li>
+        <li><a href="#data-flow">5. Data Flow Architecture</a></li>
+        <li><a href="#deployment">6. Deployment Information</a></li>
+        <li><a href="#quick-reference">7. Quick Reference</a></li>
+    </ul>
+</div>
+
+<section id="project-overview">
+<h2>📋 Project Overview</h2>
+
+<div class="component-box">
+    <p>The YouTube ELT Pipeline is a production-ready data engineering solution that automatically extracts, loads, and transforms YouTube video data using Apache Airflow, PostgreSQL, and Docker. The system provides automated data quality checks and a scalable architecture for analytics workloads.</p>
+    
+    <h3>Technology Stack:</h3>
+    <ul>
+        <li><strong>Orchestration:</strong> Apache Airflow</li>
+        <li><strong>Database:</strong> PostgreSQL</li>
+        <li><strong>Containerization:</strong> Docker & Docker Compose</li>
+        <li><strong>Data Quality:</strong> Soda Core</li>
+        <li><strong>API Integration:</strong> YouTube Data API v3</li>
+        <li><strong>Language:</strong> Python</li>
+    </ul>
+</div>
+</section>
+
+<section id="core-infrastructure">
+<h2>🏗️ Core Infrastructure Components</h2>
+
+<div class="component-box">
+    <h3>1. Apache Airflow (Orchestrator)</h3>
+    <p><span class="function-tag">Function</span> Workflow orchestration and scheduling</p>
+    <p><span class="purpose-tag">Purpose</span> Manages, schedules, and monitors all pipeline tasks</p>
+    
+    <h4>Components:</h4>
+    <ul>
+        <li><strong>Webserver:</strong> User interface accessible at http://localhost:8080</li>
+        <li><strong>Scheduler:</strong> Task execution and dependency management</li>
+        <li><strong>DAG Processor:</strong> Loads and validates workflow definitions</li>
+        <li><strong>Executor:</strong> Manages task execution across workers</li>
+    </ul>
+    
+    <h4>Key Features:</h4>
+    <ul>
+        <li>Web-based UI for monitoring and management</li>
+        <li>Dependency resolution between tasks</li>
+        <li>Retry logic and error handling</li>
+        <li>Scheduling with cron expressions</li>
+        <li>Task logging and history tracking</li>
+    </ul>
+</div>
+
+<div class="component-box">
+    <h3>2. PostgreSQL Database (Data Warehouse)</h3>
+    <p><span class="function-tag">Function</span> Data storage and transformation layer</p>
+    <p><span class="purpose-tag">Purpose</span> Stores raw and processed YouTube data</p>
+    
+    <h4>Database Schemas:</h4>
+    <ul>
+        <li><strong>staging:</strong> Raw extracted data from YouTube API</li>
+        <li><strong>core:</strong> Cleaned, transformed data ready for analysis</li>
+        <li><strong>public:</strong> Airflow metadata and system tables</li>
+    </ul>
+    
+    <h4>Key Tables:</h4>
+    <pre>-- Staging layer
+staging.videos (raw YouTube data)
+
+-- Core layer  
+core.videos (processed analytics data)
+
+-- System tables
+public.dag_run, public.task_instance (Airflow metadata)</pre>
+</div>
+
+<div class="component-box">
+    <h3>3. Docker Containers (Environment)</h3>
+    <p><span class="function-tag">Function</span> Containerized deployment and isolation</p>
+    <p><span class="purpose-tag">Purpose</span> Ensures consistent, reproducible environment</p>
+    
+    <h4>Docker Services:</h4>
+    <ul>
+        <li><strong>airflow-webserver:</strong> Web UI access (Port 8080)</li>
+        <li><strong>airflow-scheduler:</strong> Task scheduling engine</li>
+        <li><strong>postgres:</strong> Database service (Port 5434)</li>
+        <li><strong>airflow-init:</strong> Database initialization service</li>
+    </ul>
+    
+    <h4>Configuration Files:</h4>
+    <ul>
+        <li><code>docker-compose-production.yml</code>: Production orchestration</li>
+        <li><code>Dockerfile</code>: Custom Airflow image</li>
+        <li><code>.env.production</code>: Environment variables</li>
+    </ul>
+</div>
+</section>
+
+<section id="data-pipeline">
+<h2>📊 Data Pipeline Components (DAGs)</h2>
+
+<div class="component-box">
+    <h3>4. produce_json DAG</h3>
+    <p><span class="function-tag">Function</span> YouTube data extraction</p>
+    <p><span class="purpose-tag">Purpose</span> Fetches video data from YouTube API</p>
+    
+    <h4>Process Flow:</h4>
+    <ol>
+        <li>Connects to YouTube API v3 using API key</li>
+        <li>Retrieves video IDs from specified playlists/channels</li>
+        <li>Extracts detailed video metadata:
+            <ul>
+                <li>Title, description, duration</li>
+                <li>View count, like count, comment count</li>
+                <li>Publication date, tags, category</li>
+            </ul>
+        </li>
+        <li>Saves timestamped JSON files to <code>data/json/</code></li>
+        <li>Handles API pagination and quota limits</li>
+    </ol>
+    
+    <h4>Key Features:</h4>
+    <ul>
+        <li>Robust error handling and retry logic</li>
+        <li>API quota management</li>
+        <li>Incremental data extraction</li>
+        <li>JSON data validation</li>
+    </ul>
+</div>
+
+<div class="component-box">
+    <h3>5. update_db DAG</h3>
+    <p><span class="function-tag">Function</span> Data loading and transformation</p>
+    <p><span class="purpose-tag">Purpose</span> Moves data from JSON files to database</p>
+    
+    <h4>Process Steps:</h4>
+    <ol>
+        <li><strong>Table Creation:</strong> Ensures staging.videos and core.videos tables exist</li>
+        <li><strong>Staging Load:</strong> Reads JSON files and loads raw data to staging.videos</li>
+        <li><strong>Data Transformation:</strong> Applies business logic and data cleaning</li>
+        <li><strong>Core Load:</strong> Transfers processed data to core.videos table</li>
+        <li><strong>Duplicate Handling:</strong> Manages upserts and data consistency</li>
+    </ol>
+    
+    <h4>Transformation Logic:</h4>
+    <pre>-- Example transformations
+- Date parsing and standardization
+- Numeric data type conversions  
+- Text cleaning and normalization
+- Duplicate detection and removal</pre>
+</div>
+
+<div class="component-box">
+    <h3>6. data_quality DAG</h3>
+    <p><span class="function-tag">Function</span> Data quality validation</p>
+    <p><span class="purpose-tag">Purpose</span> Ensures data integrity and reliability</p>
+    
+    <h4>Quality Checks:</h4>
+    <ul>
+        <li><strong>Row Count Validation:</strong> Ensures expected data volumes</li>
+        <li><strong>Missing Value Detection:</strong> Identifies incomplete records</li>
+        <li><strong>Duplicate Record Identification:</strong> Prevents data duplication</li>
+        <li><strong>Data Type Consistency:</strong> Validates field formats</li>
+        <li><strong>Business Rule Validation:</strong> Custom domain-specific checks</li>
+    </ul>
+    
+    <h4>Soda Core Integration:</h4>
+    <ul>
+        <li>Configurable quality thresholds</li>
+        <li>Automated alerting on failures</li>
+        <li>Historical quality trend tracking</li>
+        <li>Custom quality metrics</li>
+    </ul>
+</div>
+
+<div class="component-box">
+    <h3>7. youtube_elt DAG</h3>
+    <p><span class="function-tag">Function</span> Master pipeline orchestration</p>
+    <p><span class="purpose-tag">Purpose</span> Coordinates the entire ELT process</p>
+    
+    <h4>Workflow Dependencies:</h4>
+    <pre>produce_json → update_db → data_quality</pre>
+    
+    <h4>Scheduling Options:</h4>
+    <ul>
+        <li>Manual trigger for ad-hoc runs</li>
+        <li>Scheduled execution (daily/weekly)</li>
+        <li>Event-driven triggers</li>
+        <li>Sensor-based activation</li>
+    </ul>
+</div>
+</section>
+
+<section id="supporting-components">
+<h2>🛠️ Supporting Components</h2>
+
+<div class="component-box">
+    <h3>8. include/scripts/youtube_elt.py</h3>
+    <p><span class="function-tag">Function</span> Core extraction logic</p>
+    <p><span class="purpose-tag">Purpose</span> Contains YouTube API interaction code</p>
+    
+    <h4>Key Features:</h4>
+    <ul>
+        <li><strong>API Authentication:</strong> Secure API key management</li>
+        <li><strong>Video Data Retrieval:</strong> Comprehensive metadata extraction</li>
+        <li><strong>Error Handling:</strong> Robust exception management and retries</li>
+        <li><strong>JSON File Generation:</strong> Structured data output</li>
+        <li><strong>Logging:</strong> Detailed execution tracking</li>
+    </ul>
+    
+    <h4>Data Extraction Capabilities:</h4>
+    <pre># Video metadata extracted:
+- video_id, title, description
+- duration, view_count, like_count
+- comment_count, published_at
+- channel_id, channel_title
+- tags, category_id</pre>
+</div>
+
+<div class="component-box">
+    <h3>9. include/soda/ (Data Quality Framework)</h3>
+    <p><span class="function-tag">Function</span> Data quality configuration</p>
+    <p><span class="purpose-tag">Purpose</span> Defines quality rules and checks</p>
+    
+    <h4>Configuration Files:</h4>
+    <ul>
+        <li><strong>configuration.yml:</strong> Database connection settings</li>
+        <li><strong>checks/videos.yml:</strong> Quality validation rules</li>
+    </ul>
+    
+    <h4>Sample Quality Checks:</h4>
+    <pre>checks for core.videos:
+  - row_count > 0
+  - missing_count(title) = 0
+  - duplicate_count(video_id) = 0
+  - avg(view_count) > 1000</pre>
+</div>
+
+<div class="component-box">
+    <h3>10. Environment Configuration</h3>
+    <p><span class="function-tag">Function</span> System configuration management</p>
+    <p><span class="purpose-tag">Purpose</span> Stores sensitive data and settings</p>
+    
+    <h4>Configuration Files:</h4>
+    <ul>
+        <li><strong>.env.production:</strong> Production environment variables</li>
+        <li><strong>docker-compose-production.yml:</strong> Container orchestration</li>
+        <li><strong>init-db.sql:</strong> Database initialization scripts</li>
+        <li><strong>requirements.txt:</strong> Python dependencies</li>
+    </ul>
+    
+    <h4>Environment Variables:</h4>
+    <pre>YOUTUBE_API_KEY=your_api_key_here
+POSTGRES_USER=airflow
+POSTGRES_PASSWORD=airflow
+POSTGRES_DB=airflow
+AIRFLOW__CORE__EXECUTOR=LocalExecutor</pre>
+</div>
+</section>
+
+<section id="data-flow">
+<h2>🔄 Data Flow Architecture</h2>
+
+<div class="flow-diagram">
+    <h3>High-Level Data Flow</h3>
+    <pre>
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   YouTube API   │───▶│   produce_json   │───▶│  data/json/     │
+│   (Data Source) │    │   (Extraction)   │    │  (Raw Files)    │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+                                                         │
+                                                         ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│  core.videos    │◀───│    update_db     │◀───│ staging.videos  │
+│   (Analytics)   │    │  (Transform)     │    │   (Raw Data)    │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │
+         ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐
+│  data_quality   │    │    Airflow       │
+│   (Validation)  │    │   (Metadata)     │
+└─────────────────┘    └──────────────────┘
+    </pre>
+</div>
+
+<div class="component-box">
+    <h3>Detailed Process Flow</h3>
+    <ol>
+        <li><strong>Data Extraction:</strong> YouTube API → JSON files</li>
+        <li><strong>Staging Load:</strong> JSON files → staging.videos table</li>
+        <li><strong>Data Transformation:</strong> staging.videos → core.videos (with business logic)</li>
+        <li><strong>Quality Validation:</strong> Soda Core checks on core.videos</li>
+        <li><strong>Monitoring:</strong> Airflow UI provides execution visibility</li>
+    </ol>
+</div>
+</section>
+
+<section id="deployment">
+<h2>🚀 Deployment Information</h2>
+
+<div class="deployment-info">
+    <h3>Production Deployment</h3>
+    <p><strong>Server URL:</strong> <a href="http://localhost:8080">http://localhost:8080</a></p>
+    <p><strong>Login Credentials:</strong></p>
+    <ul>
+        <li>Username: <code>admin</code></li>
+        <li>Password: <code>admin</code></li>
+    </ul>
+</div>
+
+<div class="component-box">
+    <h3>Container Status</h3>
+    <pre># Check running containers
+docker ps
+
+# Expected services:
+- youtube-elt-pipeline-airflow-webserver-1
+- youtube-elt-pipeline-airflow-scheduler-1  
+- youtube-elt-pipeline-postgres-1
+- youtube-elt-pipeline-airflow-init-1</pre>
+</div>
+
+<div class="component-box">
+    <h3>Database Access</h3>
+    <pre># PostgreSQL connection details
+Host: localhost
+Port: 5434
+Database: airflow
+Username: airflow
+Password: airflow</pre>
+</div>
+
+<div class="component-box">
+    <h3>DAG Status</h3>
+    <p>All 4 DAGs should be loaded and available:</p>
+    <ul>
+        <li>✅ <code>youtube_elt</code> - Master orchestration pipeline</li>
+        <li>✅ <code>produce_json</code> - YouTube data extraction</li>
+        <li>✅ <code>update_db</code> - Database loading and transformation</li>
+        <li>✅ <code>data_quality</code> - Data quality validation</li>
+    </ul>
+</div>
+</section>
+
+<section id="quick-reference">
+<h2>⚡ Quick Reference</h2>
+
+<div class="quick-ref">
+    <h3>Starting the System</h3>
+    <pre># Start all services
+docker-compose -f docker-compose-production.yml up -d
+
+# Check service health
+docker-compose -f docker-compose-production.yml ps</pre>
+</div>
+
+<div class="quick-ref">
+    <h3>Stopping the System</h3>
+    <pre># Stop all services
+docker-compose -f docker-compose-production.yml down
+
+# Stop and remove volumes (complete cleanup)
+docker-compose -f docker-compose-production.yml down -v</pre>
+</div>
+
+<div class="quick-ref">
+    <h3>Monitoring Commands</h3>
+    <pre># View logs
+docker-compose -f docker-compose-production.yml logs airflow-webserver
+docker-compose -f docker-compose-production.yml logs airflow-scheduler
+
+# Access database
+docker exec -it youtube-elt-pipeline-postgres-1 psql -U airflow -d airflow</pre>
+</div>
+
+<div class="quick-ref">
+    <h3>Common Operations</h3>
+    <pre># Restart specific service
+docker-compose -f docker-compose-production.yml restart airflow-scheduler
+
+# View container resource usage
+docker stats
+
+# Access Airflow container
+docker exec -it youtube-elt-pipeline-airflow-webserver-1 bash</pre>
+</div>
+
+<div class="component-box">
+    <h2>🏆 Architecture Benefits</h2>
+    
+    <table>
+        <tr>
+            <th>Benefit</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><strong>Scalability</strong></td>
+            <td>
+                • Modular DAG design allows independent scaling<br>
+                • Docker containers enable horizontal scaling<br>
+                • PostgreSQL supports large datasets
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Reliability</strong></td>
+            <td>
+                • Comprehensive error handling and retries<br>
+                • Data quality validation prevents bad data<br>
+                • Container isolation provides stability
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Maintainability</strong></td>
+            <td>
+                • Clean separation of concerns<br>
+                • Well-documented codebase<br>
+                • Version-controlled configuration
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Monitoring</strong></td>
+            <td>
+                • Airflow UI provides real-time visibility<br>
+                • Detailed logging at all levels<br>
+                • Data quality metrics tracking
+            </td>
+        </tr>
+    </table>
+</div>
+</section>
+
+<footer style="margin-top: 50px; padding: 20px; border-top: 2px solid #ecf0f1; text-align: center; color: #7f8c8d;">
+    <p><em>This guide provides a comprehensive overview of all components in the YouTube ELT Pipeline. Each component is designed to work together in a cohesive, production-ready data engineering solution.</em></p>
+    <p><strong>Last Updated:</strong> December 2024 | <strong>Version:</strong> Production v1.0</p>
+</footer>
+
+</body>
+</html>

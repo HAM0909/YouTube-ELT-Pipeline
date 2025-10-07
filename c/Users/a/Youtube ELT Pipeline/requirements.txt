@@ -1,0 +1,6 @@
+apache-airflow-providers-postgres
+apache-airflow-providers-docker
+soda-core-scientific
+soda-core-postgres
+pytest
+google-api-python-client

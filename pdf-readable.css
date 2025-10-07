@@ -1,0 +1,112 @@
+/* Simple Readable PDF Styles */
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #333;
+    max-width: none;
+}
+
+h1 {
+    font-size: 24pt;
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 18pt;
+    color: #34495e;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 5px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 14pt;
+    color: #2c3e50;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+h4 {
+    font-size: 12pt;
+    color: #5d6d7e;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+code {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 3px;
+    padding: 2px 5px;
+    font-family: "Consolas", "Monaco", monospace;
+    font-size: 9pt;
+    color: #e74c3c;
+}
+
+pre {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
+    font-family: "Consolas", "Monaco", monospace;
+    font-size: 9pt;
+    line-height: 1.4;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+ul, ol {
+    margin: 12px 0;
+    padding-left: 25px;
+}
+
+li {
+    margin-bottom: 6px;
+}
+
+blockquote {
+    border-left: 4px solid #3498db;
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    margin: 15px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+strong {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+em {
+    font-style: italic;
+    color: #5d6d7e;
+}

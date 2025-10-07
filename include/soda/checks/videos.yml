@@ -1,0 +1,4 @@
+checks for core.videos:
+  - row_count > 0
+  - missing_count(video_id) = 0
+  - duplicate_count(video_id) = 0

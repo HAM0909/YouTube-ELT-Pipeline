@@ -1,0 +1,245 @@
+/* Enhanced Readable PDF Styles */
+
+/* Base Typography - Clean and Professional */
+body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
+    font-size: 12pt !important;
+    line-height: 1.7 !important;
+    color: #2c3e50 !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: white !important;
+}
+
+/* Headings - Clear Hierarchy */
+h1 {
+    font-size: 28pt !important;
+    color: #1a5490 !important;
+    margin: 40px 0 20px 0 !important;
+    padding-bottom: 10px !important;
+    border-bottom: 3px solid #3498db !important;
+    page-break-after: avoid !important;
+    font-weight: bold !important;
+}
+
+h2 {
+    font-size: 20pt !important;
+    color: #2c3e50 !important;
+    margin: 30px 0 15px 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 2px solid #bdc3c7 !important;
+    page-break-after: avoid !important;
+    font-weight: bold !important;
+}
+
+h3 {
+    font-size: 16pt !important;
+    color: #34495e !important;
+    margin: 25px 0 12px 0 !important;
+    page-break-after: avoid !important;
+    font-weight: bold !important;
+}
+
+h4 {
+    font-size: 14pt !important;
+    color: #5d6d7e !important;
+    margin: 20px 0 10px 0 !important;
+    page-break-after: avoid !important;
+    font-weight: bold !important;
+}
+
+/* Paragraphs - Comfortable Reading */
+p {
+    margin: 0 0 15px 0 !important;
+    line-height: 1.7 !important;
+    font-size: 12pt !important;
+    text-align: left !important;
+    orphans: 3 !important;
+    widows: 3 !important;
+}
+
+/* Code Blocks - Highly Readable */
+pre {
+    background-color: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 6px !important;
+    padding: 20px !important;
+    margin: 20px 0 !important;
+    font-family: "Consolas", "Monaco", "Courier New", monospace !important;
+    font-size: 10pt !important;
+    line-height: 1.5 !important;
+    overflow-x: auto !important;
+    page-break-inside: avoid !important;
+    color: #2c3e50 !important;
+}
+
+/* Inline Code */
+code {
+    background-color: #f1f3f4 !important;
+    padding: 3px 6px !important;
+    border-radius: 4px !important;
+    font-family: "Consolas", "Monaco", "Courier New", monospace !important;
+    font-size: 10pt !important;
+    color: #c92a2a !important;
+    border: 1px solid #e9ecef !important;
+}
+
+/* Lists - Clear Structure */
+ul, ol {
+    margin: 15px 0 !important;
+    padding-left: 30px !important;
+}
+
+li {
+    margin: 8px 0 !important;
+    line-height: 1.6 !important;
+    font-size: 12pt !important;
+}
+
+/* Tables - Professional Look */
+table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin: 25px 0 !important;
+    page-break-inside: avoid !important;
+    font-size: 11pt !important;
+}
+
+th {
+    background-color: #e8f4f8 !important;
+    border: 2px solid #3498db !important;
+    padding: 12px 15px !important;
+    text-align: left !important;
+    font-weight: bold !important;
+    color: #1a5490 !important;
+}
+
+td {
+    border: 1px solid #bdc3c7 !important;
+    padding: 10px 15px !important;
+    text-align: left !important;
+    vertical-align: top !important;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9fa !important;
+}
+
+/* Blockquotes - Emphasis */
+blockquote {
+    border-left: 5px solid #3498db !important;
+    background-color: #f8f9fa !important;
+    padding: 15px 20px !important;
+    margin: 20px 0 !important;
+    border-radius: 0 6px 6px 0 !important;
+    font-style: italic !important;
+    color: #34495e !important;
+}
+
+/* Links - Readable */
+a {
+    color: #3498db !important;
+    text-decoration: underline !important;
+}
+
+/* ASCII Art & Diagrams - Preserved Formatting */
+pre.ascii-art, 
+pre:contains("┌"), 
+pre:contains("│"), 
+pre:contains("└") {
+    font-family: "Courier New", monospace !important;
+    font-size: 9pt !important;
+    line-height: 1.2 !important;
+    background-color: #ffffff !important;
+    border: 2px solid #2980b9 !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    text-align: left !important;
+    white-space: pre !important;
+}
+
+/* Strong/Bold Text */
+strong, b {
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+}
+
+/* Emphasis/Italic */
+em, i {
+    font-style: italic !important;
+    color: #5d6d7e !important;
+}
+
+/* Page Breaks - Smart Breaking */
+h1, h2 {
+    page-break-before: auto !important;
+    orphans: 4 !important;
+    widows: 4 !important;
+}
+
+/* Horizontal Rules */
+hr {
+    border: none !important;
+    border-top: 2px solid #bdc3c7 !important;
+    margin: 30px 0 !important;
+}
+
+/* Table of Contents Styling */
+.toc {
+    background-color: #f8f9fa !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    padding: 25px !important;
+    margin: 30px 0 !important;
+}
+
+.toc h2 {
+    margin-top: 0 !important;
+    border-bottom: none !important;
+    color: #1a5490 !important;
+}
+
+/* Ensure Print Quality */
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    body {
+        font-size: 11pt !important;
+        line-height: 1.6 !important;
+    }
+    
+    h1 { font-size: 24pt !important; }
+    h2 { font-size: 18pt !important; }
+    h3 { font-size: 14pt !important; }
+    h4 { font-size: 12pt !important; }
+    
+    pre {
+        font-size: 9pt !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+    }
+    
+    table {
+        font-size: 10pt !important;
+    }
+}
+
+/* Fix for markdown-pdf specific issues */
+.markdown-body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
+    font-size: 12pt !important;
+    line-height: 1.7 !important;
+    color: #2c3e50 !important;
+}
+
+/* Ensure text is always visible */
+* {
+    color: inherit !important;
+}
+
+p, div, span, li, td, th {
+    color: #2c3e50 !important;
+}

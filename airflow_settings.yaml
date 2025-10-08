@@ -1,0 +1,96 @@
+# Astro Airflow Settings Configuration
+# This file defines Airflow connections, variables, and pools
+
+# Connections
+airflow:
+  connections:
+    # PostgreSQL connection for main database
+    - conn_id: postgres_default
+      conn_type: postgres
+      conn_host: postgres
+      conn_port: 5432
+      conn_login: postgres
+      conn_password: password
+      conn_schema: postgres
+      conn_extra: |
+        {
+          "sslmode": "disable",
+          "application_name": "youtube_elt_pipeline"
+        }
+
+    # Alternative PostgreSQL connection
+    - conn_id: postgres_db
+      conn_type: postgres
+      conn_host: postgres  
+      conn_port: 5432
+      conn_login: postgres
+      conn_password: password
+      conn_schema: postgres
+      conn_extra: |
+        {
+          "sslmode": "disable"
+        }
+
+  # Airflow Variables
+  variables:
+    # YouTube API configuration
+    - key: YOUTUBE_API_KEY
+      value: "${YOUTUBE_API_KEY}"
+      description: "YouTube Data API v3 Key"
+
+    - key: YOUTUBE_CHANNEL_NAME
+      value: "MrBeast"
+      description: "Target YouTube channel name"
+
+    # Data paths
+    - key: DATA_PATH
+      value: "/usr/local/airflow/data"
+      description: "Base data directory"
+
+    - key: JSON_PATH  
+      value: "/usr/local/airflow/data/json"
+      description: "JSON files storage path"
+
+    - key: SCRIPTS_PATH
+      value: "/usr/local/airflow/include/scripts"  
+      description: "Python scripts directory"
+
+    - key: SODA_PATH
+      value: "/usr/local/airflow/include/soda"
+      description: "Soda Core configuration path"
+
+    # Pipeline configuration
+    - key: MAX_VIDEOS_PER_RUN
+      value: "100"
+      description: "Maximum videos to extract per DAG run"
+
+    - key: DATA_RETENTION_DAYS
+      value: "30"
+      description: "Number of days to retain raw JSON files"
+
+    - key: API_RATE_LIMIT_DELAY
+      value: "1"
+      description: "Delay in seconds between API calls"
+
+    # Database configuration
+    - key: DB_SCHEMA_STAGING
+      value: "staging"
+      description: "Staging schema name"
+
+    - key: DB_SCHEMA_CORE
+      value: "core"
+      description: "Core data warehouse schema name"
+
+  # Connection pools
+  pools:
+    - pool_name: youtube_api_pool
+      pool_slots: 1
+      pool_description: "Pool for YouTube API calls to respect rate limits"
+
+    - pool_name: database_pool
+      pool_slots: 5
+      pool_description: "Pool for database operations"
+
+    - pool_name: soda_quality_pool
+      pool_slots: 2
+      pool_description: "Pool for Soda Core quality checks"

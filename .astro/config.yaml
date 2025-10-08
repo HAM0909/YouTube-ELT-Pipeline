@@ -1,0 +1,48 @@
+project:
+  name: youtube-elt-pipeline
+  description: Automated YouTube ELT Pipeline for Data Analysis
+
+# Astro Runtime configuration
+runtime:
+  version: 9.8.0
+  python_version: "3.11"
+
+# Development environment
+local:
+  env_file: ".env"
+  
+# Airflow configuration
+airflow:
+  connections:
+    - conn_id: postgres_default
+      conn_type: postgres
+      host: postgres
+      port: 5432
+      schema: postgres
+      login: postgres
+      password: password
+      
+  variables:
+    - key: YOUTUBE_API_KEY
+      value: "${YOUTUBE_API_KEY}"
+    - key: DATA_PATH
+      value: "/usr/local/airflow/data"
+    - key: JSON_PATH
+      value: "/usr/local/airflow/data/json"
+    - key: SODA_PATH
+      value: "/usr/local/airflow/include/soda"
+
+# Docker configuration
+docker:
+  build_args:
+    - AIRFLOW_HOME=/usr/local/airflow
+  volumes:
+    - "./dags:/usr/local/airflow/dags:rw"
+    - "./include:/usr/local/airflow/include:rw"
+    - "./data:/usr/local/airflow/data:rw"
+    - "./logs:/usr/local/airflow/logs:rw"
+
+# Development settings
+dev:
+  auto_refresh: true
+  debug: true

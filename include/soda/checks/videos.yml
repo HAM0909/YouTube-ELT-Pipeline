@@ -1,4 +1,109 @@
 checks for core.videos:
-  - row_count > 0
-  - missing_count(video_id) = 0
-  - duplicate_count(video_id) = 0
+  # Completeness Checks
+  - row_count > 0:
+      name: "Videos table should contain data"
+      warn_when: row_count < 10
+      fail_when: row_count = 0
+      
+  - missing_count(video_id) = 0:
+      name: "All videos must have video_id"
+      
+  - missing_count(title) = 0:
+      name: "All videos must have title"
+      
+  - missing_count(published_at) = 0:
+      name: "All videos must have publication date"
+      
+  - missing_count(view_count) = 0:
+      name: "All videos must have view count"
+
+  # Uniqueness Checks  
+  - duplicate_count(video_id) = 0:
+      name: "Video IDs must be unique"
+      
+  # Data Quality & Format Checks
+  - invalid_count(view_count) = 0:
+      valid_format: integer
+      name: "View count must be numeric"
+      
+  - invalid_count(like_count) = 0:
+      valid_format: integer
+      name: "Like count must be numeric"
+      
+  - invalid_count(comment_count) = 0:
+      valid_format: integer  
+      name: "Comment count must be numeric"
+
+  # Business Logic Validation
+  - failed_rows:
+      fail_condition: view_count < 0
+      name: "View count cannot be negative"
+      
+  - failed_rows:
+      fail_condition: like_count < 0
+      name: "Like count cannot be negative"
+      
+  - failed_rows:
+      fail_condition: comment_count < 0  
+      name: "Comment count cannot be negative"
+
+  # Video ID Format Validation
+  - failed_rows:
+      fail_condition: length(video_id) != 11
+      name: "YouTube video IDs must be 11 characters long"
+
+  - invalid_regex(video_id) = 0:
+      regex: '^[A-Za-z0-9_-]{11}$'
+      name: "Video ID must match YouTube format pattern"
+
+  # Title Quality Checks
+  - failed_rows:
+      fail_condition: length(title) < 1
+      name: "Video titles cannot be empty"
+      
+  - failed_rows:
+      fail_condition: length(title) > 200
+      name: "Video titles should not exceed 200 characters"
+      warn_when: true
+
+  # Date Validation
+  - failed_rows:
+      fail_condition: published_at > NOW()
+      name: "Publication date cannot be in the future"
+
+  - failed_rows:
+      fail_condition: published_at < '2005-01-01'::timestamp
+      name: "Publication date cannot be before YouTube existed"
+
+  # Data Freshness
+  - failed_rows:
+      fail_condition: loaded_at < NOW() - INTERVAL '2 days'
+      name: "Data should be refreshed within 2 days"
+      warn_when: loaded_at < NOW() - INTERVAL '1 day'
+
+  # Performance Metrics Validation
+  - failed_rows:
+      fail_condition: like_count > view_count
+      name: "Like count cannot exceed view count"
+      warn_when: true
+
+  # Duration Format Check
+  - failed_rows:
+      fail_condition: duration NOT SIMILAR TO 'PT([0-9]+H)?([0-9]+M)?([0-9]+S)?'
+      name: "Duration must be in YouTube ISO 8601 format"
+
+checks for staging.videos:
+  # Staging-specific checks for data ingestion validation
+  - row_count > 0:
+      name: "Staging should receive new data"
+      
+  - missing_count(video_id) = 0:
+      name: "All staging videos must have ID"
+      
+  - duplicate_count(video_id) = 0:
+      name: "No duplicates in staging data"
+      
+  # Data consistency between staging and source
+  - failed_rows:
+      fail_condition: view_count IS NULL
+      name: "View count is required in staging"
